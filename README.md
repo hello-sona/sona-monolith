@@ -83,18 +83,3 @@ cd frontend
 npm install
 npm run dev
 ```
-
-Sign in at [http://localhost:5173/login](http://localhost:5173/login) with:
-
-- **admin** or **admin@example.com**
-- **password!123**
-
-That seed user is for local development only.
-
-## Using the app
-
-- `/login` and `/register` — email/password, or Google if client IDs are set
-- `/` — new chat
-- `/c/:conversationId` — an existing thread
-
-Auth is a Django session cookie plus CSRF, not JWT. The assistant is a local stub until a model is wired up.
