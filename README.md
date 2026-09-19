@@ -12,7 +12,7 @@ The frontend and backend are meant to deploy independently. Point the UI at the 
 
 ## Prerequisites
 
-- Node.js 20+
+- Node.js 22+
 - Python 3.12+
 - [uv](https://docs.astral.sh/uv/)
 - Docker (optional, for Postgres)
