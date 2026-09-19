@@ -41,7 +41,8 @@ def stack():
     procs = []
     backend_env = os.environ.copy()
     backend_env.setdefault("DB_ENGINE", "sqlite")
-    backend_env.setdefault("DJANGO_SECRET_KEY", "insecure-e2e-secret-key")
+    if not backend_env.get("DJANGO_SECRET_KEY"):
+        backend_env["DJANGO_SECRET_KEY"] = "insecure-e2e-secret-key"
 
     if not _port_open("127.0.0.1", 8000):
         subprocess.check_call(

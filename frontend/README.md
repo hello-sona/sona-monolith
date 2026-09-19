@@ -4,7 +4,7 @@ Vite + React + MUI chat UI. It talks to the Django API with `fetch`, cookies, an
 
 ## Setup
 
-Requires Node.js 20+. From this directory:
+Requires Node.js 22+. From this directory:
 
 ```bash
 cp .env.example .env
