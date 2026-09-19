@@ -6,9 +6,11 @@ Sona is a ChatGPT-style chat app: a Django API with session cookies, and a Vite/
 | --- | --- |
 | [`frontend/`](frontend/README.md) | React UI (Vite, MUI) |
 | [`backend/`](backend/README.md) | Django REST API |
-| [`e2e/`](e2e/README.md) | Playwright smoke tests |
+| [`e2e/`](e2e/README.md) | End-to-end tests |
 
 The frontend and backend are meant to deploy independently. Point the UI at the API with `VITE_API_URL`.
+
+[End-to-end tests](e2e/README.md) open a real browser against the running UI and API so we catch wiring issues that unit tests miss (login page, CSRF, and similar smoke checks). That README covers the Playwright/pytest setup, how to run the suite, and what it covers.
 
 ## Prerequisites
 
@@ -96,28 +98,3 @@ That seed user is for local development only.
 - `/c/:conversationId` — an existing thread
 
 Auth is a Django session cookie plus CSRF, not JWT. The assistant is a local stub until a model is wired up.
-
-## Tests and lint
-
-```bash
-# Frontend
-cd frontend && npm run lint && npm test
-
-# Backend (venv active)
-cd backend && source .venv/bin/activate && ruff check . && pytest
-
-# E2E (starts API + UI if they are not already running)
-cd e2e && uv sync --group dev && uv run playwright install chromium && uv run pytest
-```
-
-## GitHub
-
-Pushes and pull requests run Gitleaks, frontend/backend/e2e lint and tests. PR titles and commits must follow [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `chore:`, …).
-
-Release Please opens a release PR from those commits. Merging it updates `CHANGELOG.md`, bumps package versions, tags `vX.Y.Z`, and publishes GitHub release notes.
-
-Repository secrets used by CI:
-
-- `DJANGO_SECRET_KEY`
-- `E2E_FRONTEND_URL` (typically `http://127.0.0.1:5173`)
-- `E2E_BACKEND_URL` (typically `http://127.0.0.1:8000`)
