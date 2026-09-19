@@ -1,0 +1,49 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /frontend
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
+  - package-ecosystem: uv
+    directory: /backend
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
+  - package-ecosystem: uv
+    directory: /e2e
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
+  - package-ecosystem: docker
+    directory: /backend
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
+  - package-ecosystem: docker
+    directory: /frontend
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "chore"
+      include: "scope"

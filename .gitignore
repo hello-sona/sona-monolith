@@ -1,0 +1,32 @@
+# Python
+backend/.venv/
+e2e/.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+*.egg-info/
+.Python
+*.sqlite3
+
+# Secrets / local env
+.env
+.env.*
+!.env.example
+!**/.env.example
+*.pem
+*.key
+credentials.json
+
+# Node
+**node_modules/
+dist/
+frontend/dist/
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Docker
+pgdata/
