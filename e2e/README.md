@@ -1,6 +1,8 @@
 # E2E Tests
 
-Playwright smoke tests against the running UI and API.
+Playwright, driven by pytest, against the running UI and API.
+
+The suite lives in this package so it stays independent of `frontend/` (Vitest) and `backend/` (pytest-django). It uses [pytest-playwright](https://playwright.dev/python/docs/test-runners) and Chromium.
 
 ## Setup
 
@@ -17,13 +19,18 @@ uv run playwright install chromium
 uv run pytest
 ```
 
-If nothing is listening on ports 8000 and 5173, the suite starts Django (SQLite) and Vite, then stops them afterward. It sets a throwaway `DJANGO_SECRET_KEY` for that process only.
+If nothing is listening on ports 8000 and 5173, a session fixture starts Django (SQLite) and Vite, then stops them afterward. It sets a throwaway `DJANGO_SECRET_KEY` for that process only.
 
 To point at servers you already started:
 
 ```bash
 E2E_FRONTEND_URL=http://127.0.0.1:5173 E2E_BACKEND_URL=http://127.0.0.1:8000 uv run pytest
 ```
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `E2E_FRONTEND_URL` | `http://127.0.0.1:5173` | UI origin |
+| `E2E_BACKEND_URL` | `http://127.0.0.1:8000` | API origin |
 
 In GitHub Actions those URLs come from repository secrets.
 
