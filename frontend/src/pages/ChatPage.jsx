@@ -236,7 +236,7 @@ export function ChatPage() {
               <IconButton edge="start" aria-label="Open conversations" onClick={() => setMobileOpen(true)}>
                 <MenuIcon />
               </IconButton>
-              <Typography variant="h6" noWrap sx={{ fontWeight: 600, fontSize: 16 }}>
+              <Typography variant="h6" noWrap sx={{ fontWeight: 600, fontSize: 16, color: '#fff' }}>
                 {selected?.title ?? 'New chat'}
               </Typography>
             </Toolbar>
