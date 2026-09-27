@@ -1,4 +1,4 @@
-# Sona
+# Sona-monolith
 
 Sona is a ChatGPT-style chat app: a Django API with session cookies, and a Vite/React UI. Sign in with email or Google, then start conversations.
 
@@ -12,7 +12,7 @@ The frontend and backend are meant to deploy independently. Point the UI at the 
 
 [End-to-end tests](e2e/README.md) open a real browser against the running UI and API so we catch wiring issues that unit tests miss (login page, CSRF, and similar smoke checks). That README covers the Playwright/pytest setup, how to run the suite, and what it covers.
 
-## Prerequisites
+## Prerequisite
 
 - Node.js 22+
 - Python 3.12+
