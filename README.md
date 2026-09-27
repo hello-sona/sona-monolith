@@ -1,4 +1,4 @@
-# Sona
+# Sona-monolith
 
 Sona is a ChatGPT-style chat app: a Django API with session cookies, and a Vite/React UI. Sign in with email or Google, then start conversations.
 
