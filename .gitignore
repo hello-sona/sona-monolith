@@ -1,12 +1,17 @@
-# Python
-backend/.venv/
-e2e/.venv/
-__pycache__/
-.pytest_cache/
-*.py[cod]
-*.egg-info/
-.Python
+# Ruby / Rails
+# Machine-specific bundler settings, such as the local pg build flags.
+backend/.bundle/
+e2e/.bundle/
+vendor/bundle/
+backend/log/*
+!backend/log/.keep
+backend/tmp/*
+!backend/tmp/.keep
+backend/storage/*
+!backend/storage/.keep
+e2e/log/
 *.sqlite3
+*.sqlite3-journal
 
 # Secrets / local env
 .env

@@ -1,5 +1,11 @@
-.venv
-venv
-__pycache__
-*.pyc
 .git
+.gitignore
+
+# Local bundler config points at host-specific paths.
+.bundle
+
+log/*
+tmp/*
+storage/*
+spec/
+.rspec

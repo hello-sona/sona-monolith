@@ -10,7 +10,7 @@ test('maps Failed to fetch to a reachable-API message', async () => {
     vi.fn(() => Promise.reject(new TypeError('Failed to fetch'))),
   )
 
-  await expect(api('/api/auth/me/')).rejects.toThrow(API_UNREACHABLE_MESSAGE)
+  await expect(api('/api/auth/me')).rejects.toThrow(API_UNREACHABLE_MESSAGE)
 })
 
 test('maps Firefox NetworkError to a reachable-API message', async () => {
@@ -21,5 +21,5 @@ test('maps Firefox NetworkError to a reachable-API message', async () => {
     ),
   )
 
-  await expect(api('/api/auth/me/')).rejects.toThrow(API_UNREACHABLE_MESSAGE)
+  await expect(api('/api/auth/me')).rejects.toThrow(API_UNREACHABLE_MESSAGE)
 })

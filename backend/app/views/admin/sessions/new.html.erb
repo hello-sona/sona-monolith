@@ -1,0 +1,36 @@
+<% content_for :title, "Sign in · Sona admin" %>
+
+<main class="auth">
+  <div class="auth__card">
+    <header class="auth__header">
+      <h1 class="auth__title">Sona admin</h1>
+      <p class="auth__subtitle">Sign in with an admin account to manage users and conversations.</p>
+    </header>
+
+    <% if flash[:alert].present? %>
+      <p class="auth__alert" role="alert"><%= flash[:alert] %></p>
+    <% end %>
+
+    <%= form_with url: admin_login_path, method: :post, class: "auth__form" do |form| %>
+      <div class="field">
+        <%= form.label :email, "Email", class: "field__label" %>
+        <%= form.text_field :email,
+              value: @email,
+              autocomplete: "username",
+              autofocus: true,
+              required: true,
+              class: "field__input" %>
+      </div>
+
+      <div class="field">
+        <%= form.label :password, "Password", class: "field__label" %>
+        <%= form.password_field :password,
+              autocomplete: "current-password",
+              required: true,
+              class: "field__input" %>
+      </div>
+
+      <%= form.submit "Sign in", class: "button" %>
+    <% end %>
+  </div>
+</main>

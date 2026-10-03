@@ -1,6 +1,6 @@
 # Frontend
 
-Vite + React + MUI chat UI. It talks to the Django API with `fetch`, cookies, and CSRF.
+Vite + React + MUI chat UI. It talks to the Rails API with `fetch`, cookies, and CSRF.
 
 ## Setup
 

@@ -8,7 +8,7 @@ updates:
       prefix: "chore"
       include: "scope"
 
-  - package-ecosystem: uv
+  - package-ecosystem: bundler
     directory: /backend
     schedule:
       interval: monthly
@@ -16,7 +16,7 @@ updates:
       prefix: "chore"
       include: "scope"
 
-  - package-ecosystem: uv
+  - package-ecosystem: bundler
     directory: /e2e
     schedule:
       interval: monthly

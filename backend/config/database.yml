@@ -1,0 +1,39 @@
+# Postgres by default. Set DB_ENGINE=sqlite for a zero-dependency local run.
+# Tests always use SQLite so CI needs no database service.
+<%
+  sqlite = ENV["DB_ENGINE"] == "sqlite"
+  env = ->(key, fallback) do
+    value = ENV[key].to_s.strip
+    value.empty? ? fallback : value
+  end
+%>
+
+sqlite_default: &sqlite_default
+  adapter: sqlite3
+  pool: <%= env.call("RAILS_MAX_THREADS", 5) %>
+  timeout: 5000
+
+postgres_default: &postgres_default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= env.call("RAILS_MAX_THREADS", 5) %>
+  database: <%= env.call("DB_NAME", "sona") %>
+  username: <%= env.call("DB_USER", "sona") %>
+  password: <%= env.call("DB_PASSWORD", "sona") %>
+  host: <%= env.call("DB_HOST", "localhost") %>
+  port: <%= env.call("DB_PORT", 5432) %>
+
+development:
+<% if sqlite %>
+  <<: *sqlite_default
+  database: storage/development.sqlite3
+<% else %>
+  <<: *postgres_default
+<% end %>
+
+test:
+  <<: *sqlite_default
+  database: storage/test.sqlite3
+
+production:
+  <<: *postgres_default
