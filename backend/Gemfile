@@ -1,0 +1,48 @@
+source "https://rubygems.org"
+
+gem "rails", "~> 8.1.4"
+
+# Asset pipeline and Hotwire. Required by the Avo admin UI.
+gem "propshaft"
+gem "importmap-rails"
+gem "turbo-rails"
+gem "stimulus-rails"
+
+gem "puma", ">= 5.0"
+
+# Postgres by default, SQLite when DB_ENGINE=sqlite. See config/database.yml.
+gem "pg", "~> 1.5"
+gem "sqlite3", ">= 2.1"
+
+# Session passwords.
+gem "bcrypt", "~> 3.1.7"
+
+# Cross-origin session cookies for the Vite dev server.
+gem "rack-cors"
+
+# Verifies Google Identity Services ID tokens.
+gem "googleauth", "~> 1.11"
+
+# Loads the repo-root .env from config/boot.rb.
+gem "dotenv"
+
+# Admin UI at /admin.
+gem "avo", "~> 3.2"
+
+gem "tzinfo-data", platforms: %i[ windows jruby ]
+
+gem "bootsnap", require: false
+
+group :development, :test do
+  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  gem "rspec-rails", "~> 7.1"
+  gem "factory_bot_rails"
+  gem "webmock"
+  gem "bundler-audit", require: false
+  gem "brakeman", require: false
+  gem "rubocop-rails-omakase", require: false
+end
+
+group :development do
+  gem "web-console"
+end

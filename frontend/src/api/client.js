@@ -1,5 +1,6 @@
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
 const SAFE_METHODS = new Set(['GET', 'HEAD', 'OPTIONS'])
+const CSRF_PATH = '/api/auth/csrf'
 
 export const API_UNREACHABLE_MESSAGE = 'Cannot reach the API. Is it running?'
 
@@ -47,7 +48,7 @@ async function parseResponse(response) {
 
 export async function api(path, { method = 'GET', body, headers } = {}) {
   const verb = method.toUpperCase()
-  if (!csrfToken && !SAFE_METHODS.has(verb) && path !== '/api/auth/csrf/') {
+  if (!csrfToken && !SAFE_METHODS.has(verb) && path !== CSRF_PATH) {
     await ensureCsrf()
   }
 
@@ -58,7 +59,7 @@ export async function api(path, { method = 'GET', body, headers } = {}) {
       credentials: 'include',
       headers: {
         ...(body !== undefined ? { 'Content-Type': 'application/json' } : {}),
-        ...(csrfToken ? { 'X-CSRFToken': csrfToken } : {}),
+        ...(csrfToken ? { 'X-CSRF-Token': csrfToken } : {}),
         ...headers,
       },
       ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
@@ -69,11 +70,19 @@ export async function api(path, { method = 'GET', body, headers } = {}) {
     }
     throw error
   }
+
+  // Rails scopes the CSRF token to the session, so signing in or out issues a
+  // new one. The API echoes the current token on every response.
+  const rotated = response.headers.get('X-CSRF-Token')
+  if (rotated) {
+    csrfToken = rotated
+  }
+
   return parseResponse(response)
 }
 
 export async function ensureCsrf() {
-  const data = await api('/api/auth/csrf/')
+  const data = await api(CSRF_PATH)
   csrfToken = data.csrfToken
   return csrfToken
 }

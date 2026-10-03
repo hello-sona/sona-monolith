@@ -8,6 +8,7 @@ function jsonResponse(status, body) {
   return Promise.resolve({
     ok: status >= 200 && status < 300,
     status,
+    headers: new Headers({ 'X-CSRF-Token': 'test-csrf' }),
     json: async () => body,
   })
 }
@@ -17,16 +18,16 @@ beforeEach(() => {
     const path = String(url)
     const method = options.method ?? 'GET'
 
-    if (path.endsWith('/api/auth/csrf/')) {
+    if (path.endsWith('/api/auth/csrf')) {
       return jsonResponse(200, { csrfToken: 'test-csrf' })
     }
-    if (path.endsWith('/api/auth/me/')) {
-      return jsonResponse(403, { detail: 'Authentication credentials were not provided.' })
+    if (path.endsWith('/api/auth/me')) {
+      return jsonResponse(401, { detail: 'Authentication credentials were not provided.' })
     }
-    if (path.endsWith('/api/auth/login/') && method === 'POST') {
+    if (path.endsWith('/api/auth/login') && method === 'POST') {
       return jsonResponse(200, { id: 1, email: 'ada@example.com', display_name: 'Ada' })
     }
-    if (path.endsWith('/api/conversations/') && method === 'GET') {
+    if (path.endsWith('/api/conversations') && method === 'GET') {
       return jsonResponse(200, [])
     }
     return jsonResponse(404, { detail: 'Not found' })
@@ -58,13 +59,13 @@ test('shows a reachable-API error instead of Failed to fetch', async () => {
     const path = String(url)
     const method = options.method ?? 'GET'
 
-    if (path.endsWith('/api/auth/csrf/')) {
+    if (path.endsWith('/api/auth/csrf')) {
       return jsonResponse(200, { csrfToken: 'test-csrf' })
     }
-    if (path.endsWith('/api/auth/me/')) {
-      return jsonResponse(403, { detail: 'Authentication credentials were not provided.' })
+    if (path.endsWith('/api/auth/me')) {
+      return jsonResponse(401, { detail: 'Authentication credentials were not provided.' })
     }
-    if (path.endsWith('/api/auth/login/') && method === 'POST') {
+    if (path.endsWith('/api/auth/login') && method === 'POST') {
       return Promise.reject(new TypeError('Failed to fetch'))
     }
     return jsonResponse(404, { detail: 'Not found' })
